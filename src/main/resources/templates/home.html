@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  lang="es">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description"
+	content="Ejemplo de uso de carga de fragmentos de thymeleaf con ajax" />
+<meta name="author" content="David Muñoz Fernández" />
+
+<title>Spring boot + thymeleaf + fragments + ajax - dmunozfer.es</title>
+
+<link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css' />
+<script src="webjars/jquery/jquery.js"></script>
+<script src="webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  	<script th:inline="javascript">
+  	/*[+
+	  	$(function() {
+	  		$("#model").load('/ajax/brands', $("#brand").serialize());
+		  	$('#brand').on('change', function() {
+		  		$("#model").load('/ajax/brands', $("#brand").serialize());
+		  	});
+	  	});
+
+	+]*/ 
+	</script>
+    
+	<div class="container">
+		<div class="page-header">
+			<h1>Spring boot + thymeleaf + fragments + ajax - dmunozfer.es</h1>
+		</div>
+		
+		<div id="info-panel">
+			<h3>Información</h3>
+			<p>Ejemplo de uso de carga de <strong>fragmentos de thymeleaf 3</strong> mediante ajax utilizando spring boot.</p>
+		</div>
+
+		<div id="form-panel">
+			<h3>Formulario</h3>
+			<div class="panel panel-primary">
+				<div class="panel-heading">Selecciona el modelo de coche</div>
+				<div class="panel-body">
+					<form th:object="${car}" method="post">
+						<div class="form-group">
+							<label for="marca">Marca</label>
+	                        <select th:field="*{brand}" required="required" class="form-control">
+	                        	<option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}" />
+	                        </select>
+						</div>
+						<div class="form-group">
+							<label for="modelo">Modelo</label>
+	                        <select th:field="*{model}" required="required" class="form-control">
+	                        	<option th:fragment="models" th:each="model : ${models}" th:value="${model}" th:text="${model}" />
+	                        </select>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
